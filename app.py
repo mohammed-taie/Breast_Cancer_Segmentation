@@ -292,7 +292,7 @@ with st.container():
         """, unsafe_allow_html=True
     )
     hero_image_url = "https://via.placeholder.com/800x200.png?text=Ultrasound+Imaging+Hero"
-    st.image(hero_image_url, use_column_width=True)
+    st.image(hero_image_url, use_container_width=True)
 
 # ─── Sidebar: Navigation & Settings ──────────────────────────────
 with st.sidebar:
@@ -470,22 +470,22 @@ if uploaded_file is not None and model is not None:
         
         with results_tabs[0]:
             st.subheader("Original Image")
-            st.image(image, caption="Original Image", use_column_width=True)
+            st.image(image, caption="Original Image", use_container_width=True)
         
         with results_tabs[1]:
             st.subheader("Segmentation Results")
             col1, col2 = st.columns(2)
             with col1:
-                st.image(binary_mask, caption="Binary Mask", use_column_width=True)
+                st.image(binary_mask, caption="Binary Mask", use_container_width=True)
             with col2:
                 if st.session_state.confidence:
-                    st.image(confidence_map, caption="Confidence Heatmap", use_column_width=True)
+                    st.image(confidence_map, caption="Confidence Heatmap", use_container_width=True)
         
         with results_tabs[2]:
             st.subheader("Clinical Report")
             if st.session_state.overlay:
                 overlay = create_overlay(image, binary_mask)
-                st.image(overlay, caption="Tumor Overlay", use_column_width=True)
+                st.image(overlay, caption="Tumor Overlay", use_container_width=True)
             if st.session_state.show_metrics:
                 st.markdown("#### Clinical Measurements")
                 col1, col2, col3 = st.columns(3)
@@ -532,11 +532,11 @@ if uploaded_file is not None and model is not None:
                 with col1:
                     st.image(current_study['image'], 
                              caption=f"Current Study ({current_study['date']})", 
-                             use_column_width=True)
+                             use_container_width=True)
                 with col2:
                     st.image(prior_study['image'], 
                              caption=f"Prior Study ({prior_study['date']})", 
-                             use_column_width=True)
+                             use_container_width=True)
                 date_diff = (current_study['date'] - prior_study['date']).days
                 growth_rate = (current_study['metrics']['Estimated Size (mm²)'] - 
                                prior_study['metrics']['Estimated Size (mm²)']) / date_diff if date_diff > 0 else 0
@@ -575,7 +575,7 @@ if uploaded_file is not None and model is not None:
         with results_tabs[4]:
             st.subheader("Annotation")
             if st.session_state.annotation_data is not None:
-                st.image(st.session_state.annotation_data, caption="Annotated Image", use_column_width=True)
+                st.image(st.session_state.annotation_data, caption="Annotated Image", use_container_width=True)
             else:
                 st.info("No annotations available. Enable annotation in the left pane and draw on the image.")
         
