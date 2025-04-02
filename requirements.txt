@@ -1,5 +1,5 @@
 streamlit>=1.10.0
-tensorflow>=2.6.0
+tensorflow>=2.10.0
 pydicom>=2.2.2
 fpdf>=1.7.2
 opencv-python-headless>=4.5.0.42
