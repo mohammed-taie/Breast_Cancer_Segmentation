@@ -75,7 +75,7 @@ def show_login():
     if st.button("Login"):
         if check_login(username, password):
             st.session_state.logged_in = True
-            st.experimental_rerun()
+            st.rerun()
         else:
             st.error("Invalid username or password")
     st.markdown("</div>", unsafe_allow_html=True)
@@ -86,7 +86,7 @@ if not st.session_state.logged_in:
 
 def logout():
     st.session_state.logged_in = False
-    st.experimental_rerun()
+    st.rerun()
 
 # ─── Session State Initialization ──────────────────────────────────────────────
 if 'prior_studies' not in st.session_state:
