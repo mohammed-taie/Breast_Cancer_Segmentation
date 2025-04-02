@@ -130,12 +130,21 @@ def apply_theme(theme: str):
     else:
         st.markdown("", unsafe_allow_html=True)
 
+# Custom wrapper to override Conv2DTranspose and remove 'groups' argument
+class CustomConv2DTranspose(tf.keras.layers.Conv2DTranspose):
+    def __init__(self, *args, **kwargs):
+        kwargs.pop("groups", None)  # Remove 'groups' argument if present
+        super().__init__(*args, **kwargs)
+
+# Register the custom layer to handle unknown arguments
+custom_objects = {"Conv2DTranspose": CustomConv2DTranspose}
+
 @st.cache_resource
 def load_model():
     try:
         # Update the path to load the model from the 'deploy/model' folder
         model_path = "model/BreastCancerSegmentor.h5"
-        model = tf.keras.models.load_model(model_path)
+        model = tf.keras.models.load_model(model_path, custom_objects=custom_objects)
         st.sidebar.success("✓ Model loaded")
         return model
     except Exception as e:
